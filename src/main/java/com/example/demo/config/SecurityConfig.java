@@ -1,47 +1,59 @@
 package com.example.demo.config;
 
+import com.example.demo.security.JWTFilter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+
 import org.springframework.security.web.SecurityFilterChain;
+
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http) throws Exception {
+        @Autowired
+        private JWTFilter jwtFilter;
 
-        http
+        @Bean
+        public SecurityFilterChain securityFilterChain(
+                        HttpSecurity http)
+                        throws Exception {
 
-                .cors(cors -> {
-                })
+                http
 
-                .csrf(csrf -> csrf.disable())
+                                .cors(Customizer.withDefaults())
 
-                .authorizeHttpRequests(auth -> auth
+                                .csrf(csrf -> csrf.disable())
 
-                        .requestMatchers(
+                                .sessionManagement(
+                                                session -> session
+                                                                .sessionCreationPolicy(
+                                                                                SessionCreationPolicy.STATELESS))
 
-                                "/api/auth/**",
+                                .authorizeHttpRequests(auth -> auth
 
-                                "/swagger-ui/**",
+                                                .requestMatchers(
+                                                                "/api/auth/**",
+                                                                "/swagger-ui/**",
+                                                                "/swagger-ui.html",
+                                                                "/v3/api-docs/**")
 
-                                "/swagger-ui.html",
+                                                .permitAll()
 
-                                "/v3/api-docs/**"
+                                                .anyRequest()
 
-                        )
+                                                .authenticated());
 
-                        .permitAll()
+                http.addFilterBefore(
+                                jwtFilter,
+                                UsernamePasswordAuthenticationFilter.class);
 
-                        .anyRequest()
-
-                        .permitAll()
-
-                );
-
-        return http.build();
-    }
+                return http.build();
+        }
 }
