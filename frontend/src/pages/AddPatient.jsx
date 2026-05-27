@@ -52,78 +52,78 @@ const AddPatient = () => {
   };
 
   return (
-    <>
+    <div className="app-container">
       <Navigation />
-      <div className="min-h-screen bg-gray-100 p-8">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-800 mb-8">Add New Patient</h1>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8">
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">Patient Name</label>
-              <input
-                type="text"
-                name="patientName"
-                value={formData.patientName}
-                onChange={handleChange}
-                placeholder="Enter patient name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
-                disabled={loading}
-              />
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">Age</label>
-              <input
-                type="number"
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-                placeholder="Enter age"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
-                disabled={loading}
-              />
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">Disease</label>
-              <input
-                type="text"
-                name="disease"
-                value={formData.disease}
-                onChange={handleChange}
-                placeholder="Enter disease/condition"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
-                disabled={loading}
-              />
-            </div>
-
-            <div className="flex gap-4">
-              <button
-                type="submit"
-                disabled={loading}
-                className="flex-1 bg-green-600 text-white font-semibold py-2 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400"
-              >
-                {loading ? 'Adding...' : 'Add Patient'}
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate('/patients')}
-                className="flex-1 bg-gray-400 text-white font-semibold py-2 rounded-lg hover:bg-gray-500 transition"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+      <main className="main-content">
+        <div className="page-header">
+          <h1 className="page-title">Add New Patient</h1>
         </div>
-      </div>
-    </>
+
+        {error && (
+          <div className="alert alert-error">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="card">
+          <div className="form-group">
+            <label className="form-label">Patient Name</label>
+            <input
+              type="text"
+              name="patientName"
+              value={formData.patientName}
+              onChange={handleChange}
+              placeholder="Enter patient name"
+              className="form-input"
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Age</label>
+            <input
+              type="number"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              placeholder="Enter age"
+              className="form-input"
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Disease</label>
+            <input
+              type="text"
+              name="disease"
+              value={formData.disease}
+              onChange={handleChange}
+              placeholder="Enter disease/condition"
+              className="form-input"
+              disabled={loading}
+            />
+          </div>
+
+          <div className="form-actions">
+            <button
+              type="submit"
+              disabled={loading}
+              className="btn btn-secondary"
+            >
+              {loading ? 'Adding...' : 'Add Patient'}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/patients')}
+              className="btn btn-outline"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
   );
 };
 

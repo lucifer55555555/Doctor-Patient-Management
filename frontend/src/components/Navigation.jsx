@@ -12,34 +12,32 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white shadow-lg">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/dashboard" className="text-2xl font-bold">
-            HealthCare
+    <nav className="navbar">
+      <div className="nav-container">
+        <Link to="/dashboard" className="nav-logo">
+          HealthCare
+        </Link>
+        
+        <div className="nav-links">
+          <Link to="/dashboard" className="nav-link">
+            Dashboard
           </Link>
-          
-          <div className="flex gap-6">
-            <Link to="/dashboard" className="hover:text-blue-200 transition">
-              Dashboard
-            </Link>
-            <Link to="/doctors" className="hover:text-blue-200 transition">
-              Doctors
-            </Link>
-            <Link to="/patients" className="hover:text-blue-200 transition">
-              Patients
-            </Link>
-          </div>
+          <Link to="/doctors" className="nav-link">
+            Doctors
+          </Link>
+          <Link to="/patients" className="nav-link">
+            Patients
+          </Link>
+        </div>
 
-          <div className="flex items-center gap-4">
-            <span className="text-sm">{user?.username}</span>
-            <button
-              onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded transition"
-            >
-              Logout
-            </button>
-          </div>
+        <div className="nav-user">
+          <span className="username">{user?.username}</span>
+          <button
+            onClick={handleLogout}
+            className="btn btn-danger btn-sm"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </nav>

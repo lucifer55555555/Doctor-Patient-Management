@@ -20,8 +20,8 @@ public class CorsConfig {
 
                 registry.addMapping("/**")
 
-                        .allowedOrigins(
-                                "http://localhost:5173")
+                        .allowedOriginPatterns(
+                                "http://localhost:[*]")
 
                         .allowedMethods("*")
 
@@ -29,4 +29,4 @@ public class CorsConfig {
             }
         };
     }
-}
+}

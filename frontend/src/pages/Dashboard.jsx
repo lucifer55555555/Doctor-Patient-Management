@@ -32,52 +32,46 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div className="app-container">
       <Navigation />
-      <div className="min-h-screen bg-gray-100 p-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-800 mb-8">Dashboard</h1>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
-            </div>
-          )}
-
-          {loading ? (
-            <div className="text-center text-gray-600">Loading dashboard data...</div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Doctors Card */}
-              <div className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Doctors</h2>
-                <p className="text-4xl font-bold text-blue-600 mb-6">{doctorCount}</p>
-                <p className="text-gray-600 mb-6">Total registered doctors</p>
-                <Link
-                  to="/doctors"
-                  className="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
-                >
-                  View All Doctors
-                </Link>
-              </div>
-
-              {/* Patients Card */}
-              <div className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Patients</h2>
-                <p className="text-4xl font-bold text-green-600 mb-6">{patientCount}</p>
-                <p className="text-gray-600 mb-6">Total registered patients</p>
-                <Link
-                  to="/patients"
-                  className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
-                >
-                  View All Patients
-                </Link>
-              </div>
-            </div>
-          )}
+      <main className="main-content">
+        <div className="page-header">
+          <h1 className="page-title">Dashboard</h1>
         </div>
-      </div>
-    </>
+
+        {error && (
+          <div className="alert alert-error">
+            {error}
+          </div>
+        )}
+
+        {loading ? (
+          <div className="empty-state">Loading dashboard data...</div>
+        ) : (
+          <div className="dashboard-grid">
+            {/* Doctors Card */}
+            <div className="card stat-card">
+              <h2 className="stat-card-title">Doctors</h2>
+              <div className="stat-card-value primary">{doctorCount}</div>
+              <p className="stat-card-desc">Total registered doctors</p>
+              <Link to="/doctors" className="btn btn-primary">
+                View All Doctors
+              </Link>
+            </div>
+
+            {/* Patients Card */}
+            <div className="card stat-card">
+              <h2 className="stat-card-title">Patients</h2>
+              <div className="stat-card-value secondary">{patientCount}</div>
+              <p className="stat-card-desc">Total registered patients</p>
+              <Link to="/patients" className="btn btn-secondary">
+                View All Patients
+              </Link>
+            </div>
+          </div>
+        )}
+      </main>
+    </div>
   );
 };
 

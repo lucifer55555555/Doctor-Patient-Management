@@ -62,88 +62,86 @@ const PatientList = () => {
   };
 
   return (
-    <>
+    <div className="app-container">
       <Navigation />
-      <div className="min-h-screen bg-gray-100 p-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-800">Patients</h1>
-            <Link
-              to="/patients/add"
-              className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
-            >
-              Add New Patient
-            </Link>
-          </div>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-              {error}
-            </div>
-          )}
-
-          {successMessage && (
-            <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-              {successMessage}
-            </div>
-          )}
-
-          <div className="mb-6">
-            <input
-              type="text"
-              placeholder="Search by name or disease..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
-            />
-          </div>
-
-          {loading ? (
-            <div className="text-center text-gray-600">Loading patients...</div>
-          ) : filteredPatients.length === 0 ? (
-            <div className="text-center text-gray-600">No patients found</div>
-          ) : (
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-gray-200">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-gray-700 font-semibold">Name</th>
-                    <th className="px-6 py-3 text-left text-gray-700 font-semibold">Age</th>
-                    <th className="px-6 py-3 text-left text-gray-700 font-semibold">Disease</th>
-                    <th className="px-6 py-3 text-left text-gray-700 font-semibold">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredPatients.map((patient) => (
-                    <tr key={patient.id} className="border-b hover:bg-gray-50">
-                      <td className="px-6 py-4">{patient.patientName}</td>
-                      <td className="px-6 py-4">{patient.age}</td>
-                      <td className="px-6 py-4">{patient.disease}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex gap-2">
-                          <Link
-                            to={`/patients/edit/${patient.id}`}
-                            className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600 transition text-sm"
-                          >
-                            Edit
-                          </Link>
-                          <button
-                            onClick={() => handleDelete(patient.id)}
-                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-sm"
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+      <main className="main-content">
+        <div className="page-header">
+          <h1 className="page-title">Patients</h1>
+          <Link
+            to="/patients/add"
+            className="btn btn-secondary"
+          >
+            Add New Patient
+          </Link>
         </div>
-      </div>
-    </>
+
+        {error && (
+          <div className="alert alert-error">
+            {error}
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="toast-container">
+            <div className="toast toast-success">{successMessage}</div>
+          </div>
+        )}
+
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search by name or disease..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="form-input"
+          />
+        </div>
+
+        {loading ? (
+          <div className="empty-state">Loading patients...</div>
+        ) : filteredPatients.length === 0 ? (
+          <div className="empty-state">No patients found</div>
+        ) : (
+          <div className="table-container">
+            <table className="data-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Disease</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredPatients.map((patient) => (
+                  <tr key={patient.id}>
+                    <td>{patient.patientName}</td>
+                    <td>{patient.age}</td>
+                    <td>{patient.disease}</td>
+                    <td>
+                      <div className="action-group">
+                        <Link
+                          to={`/patients/edit/${patient.id}`}
+                          className="btn btn-warning btn-sm"
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(patient.id)}
+                          className="btn btn-danger btn-sm"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </main>
+    </div>
   );
 };
 

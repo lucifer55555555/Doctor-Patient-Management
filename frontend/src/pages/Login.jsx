@@ -27,36 +27,36 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">HealthCare Login</h1>
+    <div className="auth-container">
+      <div className="card auth-card">
+        <h1 className="auth-title">HealthCare Login</h1>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          <div className="alert alert-error">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">Username</label>
+          <div className="form-group">
+            <label className="form-label">Username</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              className="form-input"
               placeholder="Enter username"
               disabled={loading}
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-700 font-semibold mb-2">Password</label>
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              className="form-input"
               placeholder="Enter password"
               disabled={loading}
             />
@@ -65,15 +65,15 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
+            className="btn btn-primary btn-block"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 
-        <p className="text-center text-gray-600 text-sm mt-4">
+        <div className="auth-footer">
           Default: admin / admin
-        </p>
+        </div>
       </div>
     </div>
   );
